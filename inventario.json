@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "tipo": "arena",
+    "nombre": "arean fina",
+    "precio_m3": 701.0,
+    "stock_m3": 40.0,
+    "origen": "cantera"
+  },
+  {
+    "id": 2,
+    "tipo": "arena",
+    "nombre": "arena fina",
+    "precio_m3": 50.0,
+    "stock_m3": 60.0,
+    "origen": "huancayo"
+  },
+  {
+    "id": 3,
+    "tipo": "arena",
+    "nombre": "gruesa",
+    "precio_m3": 101.0,
+    "stock_m3": 60.0,
+    "origen": "cantera"
+  }
+]

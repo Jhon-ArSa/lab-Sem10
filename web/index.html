@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182c24">
+  <title>Agregados del Valle | Panel</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#inicio" aria-label="Agregados del Valle, inicio">
+        <span class="brand-mark" aria-hidden="true">AV</span>
+        <span><strong>Agregados</strong><small>DEL VALLE</small></span>
+      </a>
+      <div class="side-caption">GESTI&Oacute;N COMERCIAL</div>
+      <nav class="side-nav" aria-label="Navegaci&oacute;n principal">
+        <a class="nav-link active" href="#inicio"><span class="nav-icon">&#9632;</span> Resumen</a>
+        <a class="nav-link" href="#inventario"><span class="nav-icon">&#9638;</span> Inventario</a>
+        <a class="nav-link" href="#cotizador"><span class="nav-icon">&#8644;</span> Cotizaciones</a>
+      </nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span> Sistema operativo<small>Operaci&oacute;n local</small></div>
+    </aside>
+
+    <main class="main-content" id="inicio">
+      <header class="topbar">
+        <div class="breadcrumb">Panel <span>/</span> Resumen</div>
+        <div class="profile"><span class="profile-avatar">AV</span><span><strong>Agregados del Valle</strong><small>Administraci&oacute;n</small></span></div>
+      </header>
+
+      <section class="welcome-row">
+        <div><p class="eyebrow">CENTRO DE OPERACIONES</p><h1>Resumen del negocio</h1><p class="subheading">Administra materiales y prepara cotizaciones de entrega.</p></div>
+        <div class="today-chip"><span class="today-dot"></span> Inventario actualizado</div>
+      </section>
+
+      <section class="stats-grid" aria-label="Indicadores">
+        <article class="stat-card"><div class="stat-top"><span>Referencias activas</span><span class="stat-icon green">&#9638;</span></div><div class="stat-value" id="stat-products">0</div><div class="stat-note">Materiales en el cat&aacute;logo</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Volumen disponible</span><span class="stat-icon sand">&#8597;</span></div><div class="stat-value"><span id="stat-stock">0</span><small> m&sup3;</small></div><div class="stat-note">Existencias totales</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Tipos de material</span><span class="stat-icon blue">&#9670;</span></div><div class="stat-value" id="stat-types">0</div><div class="stat-note">Arena y grava</div></article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel inventory-panel" id="inventario">
+          <div class="panel-heading"><div><p class="eyebrow">CAT&Aacute;LOGO</p><h2>Inventario de agregados</h2></div><button class="button button-primary" id="open-product"><span>+</span> Nuevo material</button></div>
+          <div class="table-wrap"><table><thead><tr><th>Material</th><th>Origen</th><th>Precio / m&sup3;</th><th>Disponible</th><th>Estado</th></tr></thead><tbody id="product-rows"></tbody></table><div class="empty-state" id="empty-inventory"><div class="empty-symbol">&#9670;</div><strong>A&uacute;n no hay materiales</strong><span>Agrega tu primera referencia para empezar.</span><button class="button button-outline" id="empty-add">Registrar material</button></div></div>
+          <div class="table-footer"><span id="table-count">0 referencias</span><span>Valores en pesos colombianos (COP)</span></div>
+        </article>
+
+        <aside class="panel quote-panel" id="cotizador">
+          <div class="panel-heading"><div><p class="eyebrow">VENTA Y ENTREGA</p><h2>Cotizador r&aacute;pido</h2></div><span class="quote-icon">&#8644;</span></div>
+          <p class="panel-description">Calcula el valor del material y su transporte hasta la obra.</p>
+          <form id="quote-form">
+            <label for="quote-product">Material</label><select id="quote-product" required><option value="">Selecciona material</option></select>
+            <div class="form-row"><div><label for="quote-quantity">Cantidad</label><div class="input-suffix"><input id="quote-quantity" type="number" min="0.01" step="0.01" placeholder="0" required><span>m&sup3;</span></div></div><div><label for="quote-distance">Distancia</label><div class="input-suffix"><input id="quote-distance" type="number" min="0" step="0.1" placeholder="0" required><span>km</span></div></div></div>
+            <button class="button button-primary quote-submit" type="submit">Calcular cotizaci&oacute;n <span>&rarr;</span></button>
+          </form>
+          <div class="quote-result" id="quote-result" aria-live="polite" hidden><div class="result-title"><span class="result-check">&#10003;</span><strong>Resumen de cotizaci&oacute;n</strong></div><div class="result-line"><span id="result-material-label">Material</span><strong id="result-material"></strong></div><div class="result-line"><span>Transporte</span><strong id="result-freight"></strong></div><div class="result-total"><span>Total estimado</span><strong id="result-total"></strong></div><small class="result-footnote">* Cotizaci&oacute;n sujeta a confirmaci&oacute;n de disponibilidad.</small></div>
+        </aside>
+      </section>
+      <footer class="page-footer"><span><span class="footer-mark">AV</span> Agregados del Valle</span><span>Gesti&oacute;n de materiales &middot; Panel interno</span></footer>
+    </main>
+  </div>
+
+  <dialog id="product-dialog" class="product-dialog">
+    <form id="product-form" method="dialog">
+      <div class="dialog-heading"><div><p class="eyebrow">CAT&Aacute;LOGO</p><h2>Registrar material</h2></div><button class="icon-button" type="button" id="close-dialog" aria-label="Cerrar">&times;</button></div>
+      <p class="panel-description">Completa los datos del agregado para incluirlo en el inventario.</p>
+      <label for="product-type">Tipo de material</label><select id="product-type" required><option value="">Selecciona un tipo</option><option value="arena">Arena</option><option value="grava">Grava / piedra triturada</option></select>
+      <label for="product-name">Nombre comercial</label><input id="product-name" type="text" maxlength="80" placeholder="Ej. Arena lavada" required>
+      <div class="form-row"><div><label for="product-price">Precio por m&sup3;</label><input id="product-price" type="number" min="1" step="100" placeholder="85000" required></div><div><label for="product-stock">Stock disponible</label><div class="input-suffix"><input id="product-stock" type="number" min="0" step="0.1" placeholder="40" required><span>m&sup3;</span></div></div></div>
+      <label for="product-origin">Origen del material</label><input id="product-origin" type="text" maxlength="80" placeholder="Ej. Cantera La Esperanza" required>
+      <div class="dialog-actions"><button class="button button-outline" type="button" id="cancel-dialog">Cancelar</button><button class="button button-primary" type="submit">Guardar material <span>&rarr;</span></button></div>
+    </form>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
